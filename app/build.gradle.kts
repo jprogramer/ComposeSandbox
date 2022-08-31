@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
 }
 
 android {
@@ -47,19 +48,35 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.1")
-    implementation("androidx.compose.ui:ui:1.2.0-beta01")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.2.0-beta01")
-    implementation("androidx.compose.material:material:1.2.0-beta01")
+    addRoomApi()
+    addRoomCompiler()
+    implementation("androidx.core:core-ktx:1.8.0")
+
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Version.LIFECYCLE}")
+    implementation("androidx.activity:activity-compose:${Version.Compose.ACTIVITY}")
+    implementation("androidx.compose.ui:ui:${Version.Compose.UI}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${Version.Compose.UI}")
+    implementation("androidx.compose.material:material:${Version.Compose.MATERIAL}")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.0-beta01")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.2.0-beta01")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.2.0-beta01")
+    debugImplementation("androidx.compose.ui:ui-tooling:${Version.Compose.UI}")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:${Version.Compose.UI}")
 }
+
+fun DependencyHandler.addRoomApi(transient: Boolean = false) {
+    add(apiOrImpl(transient), "androidx.room:room-runtime:${Version.ROOM}")
+    add(apiOrImpl(transient), "androidx.room:room-ktx:${Version.ROOM}")
+    add(apiOrImpl(transient), "androidx.room:room-paging:${Version.ROOM}")
+    add(apiOrImpl(transient), "androidx.room:room-guava:${Version.ROOM}")
+}
+
+fun DependencyHandler.addRoomCompiler() {
+    add("kapt", "androidx.room:room-compiler:${Version.ROOM}")
+}
+
+fun apiOrImpl(transient: Boolean) = if (transient) "api" else "implementation"
 
 object Version {
     const val HILT = "2.43"
