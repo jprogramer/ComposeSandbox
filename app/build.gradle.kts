@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.example.sandbox"
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.example.sandbox"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -33,6 +35,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
     buildFeatures {
         compose = true
@@ -47,6 +50,13 @@ android {
     }
 }
 
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
+    }
+}
+
 dependencies {
     addRoomApi()
     addRoomCompiler()
@@ -57,12 +67,18 @@ dependencies {
     implementation("androidx.compose.ui:ui:${Version.Compose.UI}")
     implementation("androidx.compose.ui:ui-tooling-preview:${Version.Compose.UI}")
     implementation("androidx.compose.material:material:${Version.Compose.MATERIAL}")
+    implementation("androidx.paging:paging-compose:${Version.Compose.PAGING}")
+    implementation("androidx.compose.material3:material3:${Version.Compose.MATERIAL3}")
+    implementation("androidx.compose.material3:material3-window-size-class:${Version.Compose.MATERIAL3}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${Version.Compose.VIEWMODEL}")
+
+    debugImplementation("androidx.compose.ui:ui-tooling:${Version.Compose.UI}")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:${Version.Compose.UI}")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.0-beta01")
-    debugImplementation("androidx.compose.ui:ui-tooling:${Version.Compose.UI}")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:${Version.Compose.UI}")
 }
 
 fun DependencyHandler.addRoomApi(transient: Boolean = false) {
