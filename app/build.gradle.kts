@@ -60,3 +60,34 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:1.2.0-beta01")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.2.0-beta01")
 }
+
+object Version {
+    const val HILT = "2.43"
+//    const val HILT = "2.38.1"
+
+    const val ROOM = "2.5.0-alpha02"
+//    const val ROOM = "2.4.2"
+
+    const val LIFECYCLE = "2.6.0-alpha01"
+
+    //    const val LIFECYCLE = "2.5.0"
+    const val ARCH = "2.1.0"
+
+    const val APPCOMPAT = "1.5.0-beta01"
+
+    object Compose {
+        const val ANIMATION = "1.2.1"
+        const val COMPILER = "1.3.0"
+        const val FOUNDATION = "1.2.1"
+        const val MATERIAL = "1.2.1"
+        const val MATERIAL3 = "1.0.0-alpha16"
+        const val RUNTIME = "1.2.1"
+        const val UI = "1.2.1"
+        const val CONSTRAINT_LAYOUT = "1.0.1"
+//        const val CONSTRAINT_LAYOUT = "1.1.0-alpha01"
+
+        const val ACTIVITY = "1.5.1"
+        const val VIEWMODEL = "2.5.1"
+        const val PAGING = "1.0.0-alpha16"
+    }
+}
