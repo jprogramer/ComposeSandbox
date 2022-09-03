@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     floatingActionButton = {
                         FloatingActionButton(onClick = {
                             Log.i("£££", "refresh button clicked")
-                            entries.refresh()
+                            viewModel.updateQuery("_")
                         }) { Text("refresh") }
                     },
                     content = { EntriesList(entries) },
